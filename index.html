@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Песни</title>
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+background:#eee;
+}
+
+header{
+background:white;
+padding:20px;
+text-align:center;
+}
+
+h1{
+margin:0;
+font-weight:900;
+font-size:56px;
+}
+
+#searchSong{
+width:80%;
+padding:12px;
+margin-top:10px;
+font-size:16px;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+.song-list{
+margin:20px;
+border-radius:20px;
+overflow:hidden;
+background:white;
+}
+
+.song{
+padding:15px;
+border-bottom:1px solid #ddd;
+font-size:40px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.song:last-child{
+border-bottom:none;
+}
+
+.song:hover{
+background:#f2f2f2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Игры</h1>
+<input type="text" id="searchSong" placeholder="Поиск игры">
+</header>
+
+<div class="song-list" id="songList"></div>
+
+<script>
+
+
+const songs = [
+{ name: "Змейка", file: "snake.html" },
+{ name: "Крестики-нолики", file: "xo.html" },
+{ name: "сапер", file: "saper.html" },
+{ name: "угадай число", file: "guess.html" },
+
+];
+
+/ ВЫВОД /
+function renderSongs(list){
+const container = document.getElementById("songList");
+container.innerHTML = "";
+
+list.forEach(song=>{
+let div = document.createElement("div");
+div.className = "song";
+div.innerText = song.name;
+
+/ ПЕРЕХОД НА HTML /
+div.onclick = function(){
+window.location.href = song.file;
+};
+
+container.appendChild(div);
+});
+}
+
+/ ПОИСК /
+document.getElementById("searchSong").addEventListener("keyup", function(){
+
+let value = this.value.toLowerCase();
+
+let filtered = songs.filter(song =>
+song.name.toLowerCase().includes(value)
+);
+
+renderSongs(filtered);
+
+});
+
+/ СТАРТ */
+renderSongs(songs);
+
+</script>
+
+</body>
+</html>
